@@ -7,4 +7,4 @@ A repro project to reproduce a C# UWP App - WebView Control - Memory leak Bug
 
 ## Leaking Memory
 
-![image_2])images/image_2.png)
+![image_2](images/image_2.png)
