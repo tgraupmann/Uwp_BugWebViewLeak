@@ -13,6 +13,7 @@ namespace Uwp_BugWebViewLeak
     public sealed partial class MainPage : Page
     {
         private bool _mWaitForExit = true;
+        private bool _mRecycle = true;
         private bool _mSendData = false;
 
         public MainPage()
@@ -32,11 +33,37 @@ namespace Uwp_BugWebViewLeak
 
         private async Task SendData()
         {
+            WebView webView = null;
             while (_mWaitForExit)
             {
                 try
                 {
-                    if (_mSendData)
+                    if (_mRecycle)
+                    {
+                        _mRecycle = false;
+                        _mSendData = false;
+                        _mGrid.Children.Clear();
+                        if (webView != null)
+                        {
+                            _mGrid.Children.Remove(webView);
+                            webView = null;
+                            GC.Collect();
+                            await Task.Delay(2000); // Wait to see WebView disappear
+                        }
+                        webView = new WebView();
+                        webView.Source = new Uri("ms-appx-web:///Assets/Web.html");
+                        webView.NavigationCompleted += WebView_NavigationCompleted;
+                        _mGrid.Children.Add(webView);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.Error.WriteLine("SendData exception {0}", ex);
+                }
+
+                try
+                {
+                    if (_mSendData && webView != null)
                     {
                         string data = string.Empty;
                         for (int i = 0; i <= 1000; ++i)
@@ -45,7 +72,7 @@ namespace Uwp_BugWebViewLeak
                         }
 
                         string command = string.Format("sendFunction('{0}');", data);
-                        string result = await _mWebView.InvokeScriptAsync("eval", new string[]
+                        string result = await webView.InvokeScriptAsync("eval", new string[]
                         {
                             command
                         });
@@ -66,6 +93,11 @@ namespace Uwp_BugWebViewLeak
         {
             Window.Current.Closed += Current_Closed;
             _ = SendData();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _mRecycle = true;
         }
     }
 }

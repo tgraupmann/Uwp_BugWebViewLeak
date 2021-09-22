@@ -8,6 +8,10 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="Page_Loaded">
-
-    <WebView Name="_mWebView" Source="ms-appx-web:///Assets/Web.html" NavigationCompleted="WebView_NavigationCompleted"/>
+    <Grid>
+        <Grid Name="_mGrid"></Grid>
+        <StackPanel Background="#CCC" Width="205" Height="205" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <Button Background="#0D0" Width="200" Height="200" Click="Button_Click">RECYCLE WEBVIEW</Button>
+        </StackPanel>
+    </Grid>
 </Page>
