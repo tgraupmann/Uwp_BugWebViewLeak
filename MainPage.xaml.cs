@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,14 +27,14 @@ namespace Uwp_BugWebViewLeak
             _mWaitForExit = false;
         }
 
-        private void WebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private void WebView_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
         {
             _mSendData = true;
         }
 
         private async Task SendData()
         {
-            WebView webView = null;
+            WebView2 webView = null;
             while (_mWaitForExit)
             {
                 try
@@ -50,8 +51,8 @@ namespace Uwp_BugWebViewLeak
                             GC.Collect();
                             await Task.Delay(2000); // Wait to see WebView disappear
                         }
-                        webView = new WebView();
-                        webView.Source = new Uri("ms-appx-web:///Assets/Web.html");
+                        webView = new WebView2();
+                        webView.Source = new Uri("https://tagenigma.com/Uwp_BugWebViewLeak");
                         webView.NavigationCompleted += WebView_NavigationCompleted;
                         _mGrid.Children.Add(webView);
                     }
@@ -72,10 +73,7 @@ namespace Uwp_BugWebViewLeak
                         }
 
                         string command = string.Format("sendFunction('{0}');", data);
-                        string result = await webView.InvokeScriptAsync("eval", new string[]
-                        {
-                            command
-                        });
+                        string result = await webView.ExecuteScriptAsync(command);
                         result = null;
                         GC.Collect();
                     }
