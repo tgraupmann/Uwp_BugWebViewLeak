@@ -55,6 +55,7 @@ namespace Uwp_BugWebViewLeak
                         }
                         webView = new WebView2();
                         webView.Background = new SolidColorBrush(Colors.Transparent);
+                        //webView.Source = new Uri("ms-appx-web:///Assets/parent.html"); //not working yet
                         webView.Source = new Uri("https://tagenigma.com/Uwp_BugWebViewLeak/parent.html");
                         webView.NavigationCompleted += WebView_NavigationCompleted;
                         _mGrid.Children.Add(webView);

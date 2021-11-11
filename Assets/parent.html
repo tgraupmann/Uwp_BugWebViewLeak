@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <style>
+          body {
+            background-color: transparent;
+            background: none transparent;
+          }
+          .section-div {
+            background-color: red;
+            position: absolute;
+            top: 320px;
+            left: 240px;
+            width: 640px;
+            height: 640px;
+            font-size: 4em;
+            color: white;
+            z-index: -1;
+          }
+          .section-iframe {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            background-color: transparent;
+            background: none transparent;
+            z-index: 1;
+          }
+        </style>
+    </head>
+    <body>
+	    <div class="section-div">
+        <pre>
+
+
+This div should
+be red with iframe
+text on top of
+the red div.
+        </pre>
+      </div>
+	    <iframe class="section-iframe" src="index.html" width="640" height="480" allowtransparency="true"></iframe>
+
+        <div id="lblMessage" />
+        <script>
+            function sendFunction(data) {
+                lblMessage.innerText = data;
+                return data;
+            }
+        </script>
+
+
+    </body>
+</html>
