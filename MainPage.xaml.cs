@@ -1,8 +1,10 @@
 ﻿using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -52,7 +54,8 @@ namespace Uwp_BugWebViewLeak
                             await Task.Delay(2000); // Wait to see WebView disappear
                         }
                         webView = new WebView2();
-                        webView.Source = new Uri("https://tagenigma.com/Uwp_BugWebViewLeak");
+                        webView.Background = new SolidColorBrush(Colors.Transparent);
+                        webView.Source = new Uri("https://tagenigma.com/Uwp_BugWebViewLeak/parent.html");
                         webView.NavigationCompleted += WebView_NavigationCompleted;
                         _mGrid.Children.Add(webView);
                     }

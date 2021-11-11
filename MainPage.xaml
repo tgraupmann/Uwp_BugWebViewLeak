@@ -7,11 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Background="#08F"
     Loaded="Page_Loaded">
-    <Grid>
-        <Grid Name="_mGrid"></Grid>
-        <StackPanel Background="#CCC" Width="205" Height="205" HorizontalAlignment="Left" VerticalAlignment="Top" >
+    <Grid Background="Transparent">
+        <Grid Name="_mGrid" Background="Transparent"></Grid>
+        <StackPanel Margin="100" Background="#CCC" Width="205" Height="205" HorizontalAlignment="Right" VerticalAlignment="Top" >
             <Button Background="#0D0" Width="200" Height="200" Click="Button_Click">RECYCLE WEBVIEW</Button>
         </StackPanel>
     </Grid>
